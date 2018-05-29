@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Message; 
+use App\Tasklist; 
 
 class TasklistsController extends Controller
 {
@@ -60,10 +59,10 @@ class TasklistsController extends Controller
      */
     public function show($id)
     {
-        $message = Message::find($id);
+        $tasklist = Tasklist::find($id);
 
-        return view('messages.show', [
-            'message' => $message,
+        return view('tasklists.show', [
+            'tasklist' => $tasklist,
         ]);
     }
 
