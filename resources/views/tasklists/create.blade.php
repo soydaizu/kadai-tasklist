@@ -8,7 +8,13 @@
         
         {!! Form::label('status', 'ステータス:') !!}
         <!--{!! Form::text('status') !!}-->
-        {{Form::select('status', [' ','To Do', 'Doing', 'Done'])}}
+        <!--{{Form::select('status', [' ','To Do', 'Doing', 'Done'])}}-->
+        {{Form::select('status', [
+        ' ' => ' ',
+        'To Do' => 'To Do',
+        'Doing' => 'Doing',
+        'Done' => 'Done']
+        )}}
 
         {!! Form::label('content', 'タスクリスト:') !!}
         {!! Form::text('content') !!}
