@@ -7,7 +7,8 @@
         {!! Form::model($tasklist, ['route' => ['tasklists.update', $tasklist->id], 'method' => 'put']) !!}
            
             {!! Form::label('status', 'ステータス:') !!}
-            {!! Form::text('status') !!}
+            <!--{!! Form::text('status') !!}-->
+            {{Form::select('status', [' ', 'To Do', 'Doing', 'Done'])}}
            
             {!! Form::label('content', 'タスクリスト:') !!}
             {!! Form::text('content') !!}
