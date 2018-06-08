@@ -16,7 +16,7 @@ class TasklistsController extends Controller
     {
         if (\Auth::check()) {
             $user = \Auth::user();
-            $tasklists = $user->tasklists()->paginate(10);
+            $tasklists = $user->tasklists()->orderBy('created_at')->paginate(10);
 
             return view('welcome', [
                 'tasklists' => $tasklists,
@@ -69,15 +69,17 @@ class TasklistsController extends Controller
      */
     public function show($id)
     {
-        $u = \Auth::user();
+        $user = \Auth::user();
         $tasklist = Tasklist::find($id);
         if($tasklist == null) {
             return redirect("/");
-        } else if($u->id  == $tasklist->user_id) {
+        } 
+        else if($user->id  == $tasklist->user_id) {
             return view('tasklists.show', [
                 'tasklist' => $tasklist,
             ]);
-        } else {
+        } 
+        else {
             return redirect("/");
         }
     }
@@ -90,11 +92,19 @@ class TasklistsController extends Controller
      */
     public function edit($id)
     {
+        $user = \Auth::user();
         $tasklist = Tasklist::find($id);
-
-        return view('tasklists.edit', [
-            'tasklist' => $tasklist,
+        if($tasklist == null) {
+            return redirect("/");
+        } 
+        else if($user->id  == $tasklist->user_id) {
+            return view('tasklists.edit', [
+                'tasklist' => $tasklist,
         ]);
+        }
+        else { 
+            return redirect("/");
+        }    
     }
 
     /**
