@@ -1,6 +1,6 @@
-    <h1>Soy's Task List</h1>
+<h1>{{ Auth::user()->name }}'s Task List</h1>
     
-     @if (count($tasklists) > 0)
+    @if (count($tasklists) > 0)
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -20,4 +20,4 @@
             </tbody>
         </table>
     @endif
-    {!! link_to_route('tasklists.create', '新規タスクリストの投稿', null, ['class' => 'btn btn-primary']) !!}
+{!! link_to_route('tasklists.create', '新規タスクリストの投稿', null, ['class' => 'btn btn-primary']) !!}

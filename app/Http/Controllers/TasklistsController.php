@@ -14,12 +14,17 @@ class TasklistsController extends Controller
      */
     public function index()
     {
-        $tasklists = Tasklist::all();
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $tasklists = $user->tasklists()->paginate(10);
 
-        return view('welcome', [
-            'tasklists' => $tasklists,
-        ]);
-
+            return view('welcome', [
+                'tasklists' => $tasklists,
+            ]);
+        }
+        else {
+            return view('welcome');
+        }    
     }
 
     /**
@@ -48,11 +53,10 @@ class TasklistsController extends Controller
             'status' => 'required|max:10',   
             'content' => 'required|max:191',
         ]);
-        
-        $tasklist = new Tasklist;
-        $tasklist->status = $request->status;
-        $tasklist->content = $request->content;
-        $tasklist->save();
+        $request->user()->tasklists()->create([
+            'content' => $request->content,
+            'status' => $request->status, 
+        ]);
 
         return redirect('/');
     }
@@ -119,8 +123,9 @@ class TasklistsController extends Controller
     public function destroy($id)
     {
         $tasklist = Tasklist::find($id);
-        $tasklist->delete();
-
+        if (\Auth::user()->id === $tasklist->user_id) {
+            $tasklist->delete();
+        }
         return redirect('/');
     }
 }

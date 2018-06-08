@@ -9,21 +9,20 @@
             {!! Form::model($tasklist, ['route' => 'tasklists.store']) !!}
             <Form>
                 <div class="form-group">
-                    <lavel>ステータス</lavel>
-                    <select name="status" class="form-control">
-                        <option> </option> 
-                        <option>To Do</option>
-                        <option>Doing</option>
-                        <option>Done</option>
-                    </select>
-                </div>    
-                
-                <div class="form-group">
-                    <lavel>タスクリスト</lavel>
-                    <input name="content" class="form-control">
-                </div>
+                    {!! Form::label('status', 'ステータス:') !!}
+                    {{Form::select('status', [
+                    ' ' => ' ',
+                    'To Do' => 'To Do',
+                    'Doing' => 'Doing',
+                    'Done' => 'Done']
+                    ,null, ['class'=>'form-control']) }}
                 <br>
-                <button type="submit" class="btn btn-info">投稿</button>
+                <div class="form-group"> 
+                    {!! Form::label('content', 'タスクリスト:') !!}
+                    {!! Form::text('content', null, ['class' => 'form-control']) !!}
+                </div>
+                
+                {!! Form::submit('登録', ['class' => 'btn btn-info']) !!}
             </Form>
             {!! Form::close() !!}
         </div>
